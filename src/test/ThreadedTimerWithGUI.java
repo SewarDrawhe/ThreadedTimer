@@ -75,7 +75,6 @@ public class ThreadedTimerWithGUI {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 				thread.interrupt();
 				StartBtn.setEnabled(true);
 				StopBtn.setEnabled(false);
@@ -86,7 +85,6 @@ public class ThreadedTimerWithGUI {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
