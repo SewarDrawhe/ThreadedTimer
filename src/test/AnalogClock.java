@@ -17,8 +17,7 @@ public class AnalogClock {
 	public AnalogClock(Composite parent) {
 		composite = new Composite(parent, SWT.NONE);
 		composite.addPaintListener(event -> {
-			 size = composite.getSize();
-			
+			size = composite.getSize();
 			drawDial(event);
 			drawHands(event);
 

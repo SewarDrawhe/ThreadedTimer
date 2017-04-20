@@ -8,8 +8,8 @@ import org.eclipse.swt.widgets.Display;
 public class TimerThread extends Thread {
 	private boolean isPaused;
 	private Duration tmpDuration = Duration.ofNanos(0);
-	LocalTime startCountTime;
-	TimerInterface timer;
+	private LocalTime startCountTime;
+	private TimerInterface timer;
 
 	public TimerThread(TimerInterface timer) {
 		this.timer=timer;

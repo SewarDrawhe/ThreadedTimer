@@ -1,7 +1,6 @@
 package test;
 
 import java.time.Duration;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
@@ -18,7 +17,6 @@ public class AnalogTimerGroup implements TimerInterface {
 		timeGroup.setLayout(new RowLayout());
 		timeGroup.setText(ThreadedTimerWithGUI.TIME_GRP_TXT);
 		timeGroup.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-
 		start();
 	}
 
