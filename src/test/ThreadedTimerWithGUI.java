@@ -3,25 +3,20 @@ package test;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Text;
 
 public class ThreadedTimerWithGUI {
 	private Composite composite;
-	private Text text;
 	private Button StartBtn;
 	private Button StopBtn;
 	private Button PauseBtn;
 	private Button LapBtn;
 	private Button CloseBtn;
 	private TimerThread thread;
-	private Group timeGroup;
+	private TimerInterface timer;
 
 	public static final String TIME_GRP_TXT = "Time";
 	public static final String START_TIME_TXT = "0:00:00:000";
@@ -32,19 +27,17 @@ public class ThreadedTimerWithGUI {
 	public static final String LAP_BTN_TXT = "Next Lap";
 	public static final String CLOSE_BTN_TXT = "Close";
 
-	public ThreadedTimerWithGUI(Composite parent) {
+	public ThreadedTimerWithGUI(Composite parent, boolean IsAnalog) {
 
 		composite = new Composite(parent, SWT.BORDER);
 		composite.setLayout(new GridLayout(1, false));
 		Composite buttonComposite = new Composite(composite, SWT.NONE);
 		buttonComposite.setLayout(new RowLayout());
-		timeGroup = new Group(composite, SWT.BORDER);
-		timeGroup.setLayout(new FillLayout(SWT.VERTICAL));
-		timeGroup.setText(TIME_GRP_TXT);
-		timeGroup.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-		text = new Text(timeGroup, SWT.BORDER);
-		text.setEditable(false);
-		text.setText(START_TIME_TXT);
+		if (IsAnalog) {
+			timer = new AnalogTimerGroup(composite);
+		} else {
+			timer = new DigitTimerGroup(composite);
+		}
 
 		StartBtn = new Button(buttonComposite, SWT.PUSH);
 		StartBtn.setText(START_BTN_TXT);
@@ -52,7 +45,7 @@ public class ThreadedTimerWithGUI {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				thread = new TimerThread(timeGroup);
+				thread = new TimerThread(timer);
 				thread.setDaemon(true);
 				thread.start();
 				PauseBtn.setText(PAUSE_BTN_TXT);
@@ -120,7 +113,8 @@ public class ThreadedTimerWithGUI {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				thread.nextLap();
+				timer.nexLap();
+				// thread.nextLap();
 			}
 
 			@Override
